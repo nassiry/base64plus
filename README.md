@@ -1,8 +1,17 @@
+<div align="center">
+
 # Base64Plus
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/nassiry/base64plus/ci.yml?branch=main)
+[![License](https://img.shields.io/github/license/nassiry/base64plus?style=flat-square)](https://github.com/nassiry/base64plus/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/base64plus?color=blue&label=npm%20version&style=flat-square)](https://www.npmjs.com/package/base64plus)
+![Total Downloads](https://img.shields.io/npm/dt/base64plus.svg)
+[![Latest Release](https://img.shields.io/github/release/nassiry/base64plus?style=flat-square)](https://github.com/nassiry/base64plus/releases)
+
+</div>
 
 **Base64Plus** is a modern, Unicode-safe **Base64 encoding and decoding** library.  
 It supports **Node.js**, **ES Modules**, **Browsers** and **TypeScript**.
-
 
 ## Installation
 
