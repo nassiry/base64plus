@@ -27,6 +27,9 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Stash changes
+        run: git stash --include-untracked
+
       - name: Bump version automatically
         id: version
         run: |
@@ -39,6 +42,9 @@ jobs:
           # Save the new version for later steps
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
+      - name: Apply stashed changes
+        run: git stash pop
+
       - name: Commit and push version bump
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
@@ -47,7 +53,7 @@ jobs:
           git add -f package-lock.json
           git commit -m "Release ${{ env.VERSION }}" || echo "No changes to commit"
           git tag ${{ env.VERSION }}
-    
+
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git push origin main --tags
 
