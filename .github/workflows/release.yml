@@ -37,13 +37,13 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           # Bump version using npm and capture new version
-          NEW_VERSION=$(npm version patch -m "Release v%s")
+          NEW_VERSION=$(npm version prerelease --preid=dev -m "Pre-release v%s")
 
           # Save the new version for later steps
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
       - name: Apply stashed changes
-        run: git stash pop
+        run: git stash pop || echo "No stash found"
 
       - name: Commit and push version bump
         env:
