@@ -1,6 +1,6 @@
 {
   "name": "base64plus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A modern, Unicode-safe Base64 encoding and decoding library for JavaScript.",
   "main": "dist/Base64Plus.js",
   "type": "module",
