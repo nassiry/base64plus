@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
   release:
-    needs: build  # Runs only after build job succeeds
+    needs: build
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
@@ -59,9 +59,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Stash changes
-        run: git stash --include-untracked
-
       - name: Bump version automatically
         id: version
         run: |
@@ -75,11 +72,12 @@ jobs:
           NEW_VERSION=$(npm version patch -m "Bump version to %s")
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
           
+          # Commit version bump and build changes
+          git add package.json package-lock.json
+          git commit -m "Release ${{ env.VERSION }}" || echo "No changes to commit"
+          
           # Push new version tag
           git push origin main --tags
-
-      - name: Apply stashed changes
-        run: git stash pop
 
       - name: Publish to npm
         env:
