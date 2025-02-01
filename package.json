@@ -1,0 +1,42 @@
+{
+  "name": "base64plus",
+  "version": "1.0.0",
+  "description": "A modern, Unicode-safe Base64 encoding and decoding library for JavaScript.",
+  "main": "dist/Base64Plus.js",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nassiry/base64plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nassiry/base64plus/issues"
+  },
+  "homepage": "https://github.com/nassiry/base64plus",
+  "keywords": [
+    "base64",
+    "unicode",
+    "encoding",
+    "decoding"
+  ],
+  "author": "A.S Nassiry",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.12.0",
+    "jest": "^29.0.0",
+    "rollup": "^4.32.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.3"
+  }
+}
