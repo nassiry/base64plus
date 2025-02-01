@@ -55,6 +55,9 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Stash changes
+        run: git stash --include-untracked
+
       - name: Bump version automatically
         id: version
         run: |
@@ -70,6 +73,9 @@ jobs:
           
           # Push new version tag
           git push origin main --tags
+
+      - name: Apply stashed changes
+        run: git stash pop
 
       - name: Publish to npm
         env:
