@@ -28,7 +28,9 @@ jobs:
           cache: 'npm'
 
       - name: Reset Git working directory
-        run: git reset --hard
+        run: |
+          git reset --hard
+          git clean -fdx
 
       - name: Install dependencies
         run: npm install
@@ -57,7 +59,9 @@ jobs:
           always-auth: true
 
       - name: Reset Git working directory
-        run: git reset --hard
+        run: |
+          git reset --hard
+          git clean -fdx
 
       - name: Install dependencies
         run: npm install
