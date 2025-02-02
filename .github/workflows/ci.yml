@@ -27,6 +27,9 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      - name: Reset Git working directory
+        run: git reset --hard
+
       - name: Install dependencies
         run: npm install
 
@@ -53,6 +56,9 @@ jobs:
           registry-url: "https://registry.npmjs.org/"
           always-auth: true
 
+      - name: Reset Git working directory
+        run: git reset --hard
+
       - name: Install dependencies
         run: npm install
 
@@ -62,22 +68,22 @@ jobs:
       - name: Bump version automatically
         id: version
         run: |
-            # Set the Git configuration with the username of the person who triggered the action
-            git config --global user.name "${{ github.actor }}"
-            git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          # Set the Git configuration with the username of the person who triggered the action
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-            # Get current version and bump it
-            CURRENT_VERSION=$(node -p "require('./package.json').version")
-            NEW_VERSION=$(npm version patch -m "Bump version to %s")
-            echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
-            
-            # Ensure the working directory is clean
-            git status
-            git add -A || echo "No changes to commit"
-            git commit -m "Auto commit changes for version bump" || echo "No changes to commit"
-          
-            # Push changes and tags
-            git push origin main --tags
+          # Get current version and bump it
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          NEW_VERSION=$(npm version patch -m "Bump version to %s")
+          echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
+          # Ensure the working directory is clean
+          git status
+          git add -A || echo "No changes to commit"
+          git commit -m "Auto commit changes for version bump" || echo "No changes to commit"
+
+          # Push changes and tags
+          git push origin main --tags
 
       - name: Publish to npm
         env:
