@@ -10,8 +10,16 @@
 
 </div>
 
-**Base64Plus** is a modern, Unicode-safe **Base64 encoding and decoding** library.  
-It supports **Node.js**, **ES Modules**, **Browsers** and **TypeScript**.
+**Base64Plus** is a modern, Unicode-safe Base64 encoding and decoding library.
+It supports **Node.js**, **ES Modules**, **Browsers**, and **TypeScript** with a built-in polyfill for Node.js environments.
+
+Unlike the native atob and btoa functions, **Base64Plus**:
+
+- ✅ **Handles Unicode strings properly**: Native `atob/btoa` fail with multi-byte characters like emojis or non-Latin scripts.
+- ✅ **Works in both Node.js & Browsers**: Node.js lacks `atob/btoa`, but **Base64Plus** provides a seamless polyfill.
+- ✅ **Supports ES Modules & TypeScript**: Fully typed for modern JavaScript projects.
+- ✅ **Encodes and decodes Buffers**: Unlike `atob`, which only works with plain strings.
+- ✅ **No dependencies & lightweight**: Small package size with no external dependencies.
 
 ## Installation
 
