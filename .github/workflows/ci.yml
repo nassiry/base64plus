@@ -76,12 +76,17 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
+          # Ensure the working directory is clean
+          git status
+          git reset --hard
+          git clean -fdx
+
           # Get current version and bump it
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           NEW_VERSION=$(npm version patch -m "Bump version to %s")
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
-          # Ensure the working directory is clean
+          # Ensure the working directory is clean again
           git status
           git add -A || echo "No changes to commit"
           git commit -m "Auto commit changes for version bump" || echo "No changes to commit"
