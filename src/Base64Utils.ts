@@ -39,14 +39,14 @@ export class Base64Utils {
      * Gets the appropriate `btoa` function based on the environment.
      */
     public static get btoaFn(): (str: string) => string {
-        return this.isNode ? this.nodeBtoa : btoa;
+        return this.isNode ? this.nodeBtoa : btoa.bind(window);
     }
 
     /**
      * Gets the appropriate `atob` function based on the environment.
      */
     public static get atobFn(): (base64: string) => string {
-        return this.isNode ? this.nodeAtob : atob;
+        return this.isNode ? this.nodeAtob : atob.bind(window);
     }
 
     /**
