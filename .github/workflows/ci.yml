@@ -66,6 +66,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install rollup
+        run: npm install rollup
+
       - name: Build project
         run: npm run build
 
