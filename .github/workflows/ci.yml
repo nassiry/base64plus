@@ -100,6 +100,9 @@ jobs:
       - name: Ensure Rollup is available
         run: npx rollup --version
 
+      - name: Reinstall dependencies
+        run: npm ci
+
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
