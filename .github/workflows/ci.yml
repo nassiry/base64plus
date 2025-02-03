@@ -97,6 +97,9 @@ jobs:
           # Push changes and tags
           git push origin main --tags
 
+      - name: Ensure Rollup is available
+        run: npx rollup --version
+
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
