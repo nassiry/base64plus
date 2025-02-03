@@ -42,7 +42,7 @@ Get the latest release from [GitHub Releases](https://github.com/nassiry/base64p
 ## Usage
 ### 1. Node.js (CommonJS)
 ```javascript
-const { Base64Plus } = require("base64plus");
+const Base64Plus = require("base64plus");
 
 const encoded = Base64Plus.encode("Hello, World!");
 console.log(encoded); // Base64 string
@@ -53,7 +53,7 @@ console.log(decoded); // Hello, World!
 
 ### 2. ES Modules
 ```javascript
-import { Base64Plus } from "base64plus";
+import Base64Plus from "base64plus";
 
 const encoded = Base64Plus.encode("Base64 Encoding");
 console.log(encoded); // Base64 string
@@ -64,7 +64,7 @@ console.log(decoded); // Base64 Encoding
 ### 3. TypeScript Usage
 For **TypeScript**, just import **Base64Plus** and enjoy the full type support!
 ```javascript
-import { Base64Plus } from "base64plus";
+import Base64Plus from "base64plus";
 
 const encoded: string = Base64Plus.encode("Hello, TypeScript!");
 console.log(encoded); // Base64 string
@@ -84,7 +84,6 @@ console.log(decoded); // Hello, TypeScript!
 ### Development & Contribution
 Clone the Repository & `install` the dependencies.
 ```sh
-git clone https://github.com/nassiry/base64plus.git
 cd base64plus
 npm install
 ```
