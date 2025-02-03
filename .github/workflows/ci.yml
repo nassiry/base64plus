@@ -33,7 +33,7 @@ jobs:
           git clean -fdx
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --include=dev
 
       - name: Run tests
         run: npm test
@@ -64,7 +64,7 @@ jobs:
           git clean -fdx
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --include=dev
 
       - name: Install rollup
         run: npm install rollup
