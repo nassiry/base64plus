@@ -1,4 +1,4 @@
-import {Base64Plus} from "../src";
+import Base64Plus from "../src";
 
 describe('Base64Plus', () => {
     test('encodes and decodes Latin characters', () => {
