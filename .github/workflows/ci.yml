@@ -79,7 +79,7 @@ jobs:
 
           npm install -g standard-version
 
-          standard-version --commit-all ${{ env.BUMP_TYPE }}
+          standard-version --commit-all
 
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
