@@ -59,19 +59,22 @@ jobs:
       - name: Determine version bump type
         id: version-bump
         run: |
-          BUMP_TYPE="patch"
           COMMIT_MSG=$(git log -1 --pretty=%B)
+          BUMP_TYPE="none"
 
           if echo "$COMMIT_MSG" | grep -q "BREAKING CHANGE"; then
             BUMP_TYPE="major"
           elif echo "$COMMIT_MSG" | grep -q "feat:"; then
             BUMP_TYPE="minor"
+          elif echo "$COMMIT_MSG" | grep -q "fix:"; then
+            BUMP_TYPE="patch"
           fi
 
           echo "BUMP_TYPE=${BUMP_TYPE}" >> $GITHUB_ENV
           echo "Detected version bump: $BUMP_TYPE"
 
       - name: Bump version and update Changelog
+        if: env.BUMP_TYPE != 'none'
         id: version
         run: |
           git config --global user.name "${{ github.actor }}"
@@ -79,7 +82,7 @@ jobs:
 
           npm install -g standard-version
 
-          standard-version --commit-all
+          standard-version --commit-all --release-as ${{ env.BUMP_TYPE }}
 
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
@@ -87,6 +90,7 @@ jobs:
           git push --follow-tags origin main
 
       - name: Generate release body from Changelog
+        if: env.BUMP_TYPE != 'none'
         id: generate-release-body
         run: |
           RELEASE_BODY=$(awk '/### \[/{if (NR!=1) exit} {print}' CHANGELOG.md | tail -n +2)
@@ -95,16 +99,18 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Publish to npm
+        if: env.BUMP_TYPE != 'none'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish --access public
 
       - name: Create GitHub Release
+        if: env.BUMP_TYPE != 'none'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.VERSION }}
-          name: "Release ${{ env.VERSION }}"
+          tag_name: v${{ env.VERSION }}
+          name: "Release v${{ env.VERSION }}"
           body: ${{ env.RELEASE_BODY }}
           draft: false
           prerelease: false
