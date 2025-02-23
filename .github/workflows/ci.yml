@@ -66,6 +66,12 @@ jobs:
       - name: Install dependencies
         run: npm ci --include=dev
 
+      - name: Verify Rollup installation
+          run: npx rollup --version
+
+      - name: Install Rollup globally
+        run: npm install -g rollup
+
       - name: Build project
         run: npm run build
 
