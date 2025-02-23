@@ -35,13 +35,13 @@ class Base64Utils {
      * Gets the appropriate `btoa` function based on the environment.
      */
     static get btoaFn() {
-        return this.isNode ? this.nodeBtoa : btoa;
+        return this.isNode ? this.nodeBtoa : btoa.bind(window);
     }
     /**
      * Gets the appropriate `atob` function based on the environment.
      */
     static get atobFn() {
-        return this.isNode ? this.nodeAtob : atob;
+        return this.isNode ? this.nodeAtob : atob.bind(window);
     }
     /**
      * Validates whether a given string is a properly formatted Base64 string.
@@ -106,5 +106,14 @@ class Base64Plus {
     }
 }
 
-export { Base64Plus };
+/**
+ * Copyright (c) A.S Nassiry
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/nassiry/base64plus
+ */
+
+export { Base64Plus as default };
 //# sourceMappingURL=base64Plus.esm.js.map

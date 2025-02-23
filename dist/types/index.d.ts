@@ -6,4 +6,5 @@
  *
  * @see https://github.com/nassiry/base64plus
  */
-export * from './Base64Plus';
+import { Base64Plus } from './Base64Plus';
+export default Base64Plus;

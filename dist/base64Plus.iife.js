@@ -1,4 +1,4 @@
-var Base64Plus = (function (exports) {
+var Base64Plus = (function () {
     'use strict';
 
     /**
@@ -38,13 +38,13 @@ var Base64Plus = (function (exports) {
          * Gets the appropriate `btoa` function based on the environment.
          */
         static get btoaFn() {
-            return this.isNode ? this.nodeBtoa : btoa;
+            return this.isNode ? this.nodeBtoa : btoa.bind(window);
         }
         /**
          * Gets the appropriate `atob` function based on the environment.
          */
         static get atobFn() {
-            return this.isNode ? this.nodeAtob : atob;
+            return this.isNode ? this.nodeAtob : atob.bind(window);
         }
         /**
          * Validates whether a given string is a properly formatted Base64 string.
@@ -109,9 +109,16 @@ var Base64Plus = (function (exports) {
         }
     }
 
-    exports.Base64Plus = Base64Plus;
+    /**
+     * Copyright (c) A.S Nassiry
+     *
+     * For the full copyright and license information, please view the LICENSE
+     * file that was distributed with this source code.
+     *
+     * @see https://github.com/nassiry/base64plus
+     */
 
-    return exports;
+    return Base64Plus;
 
-})({});
+})();
 //# sourceMappingURL=base64Plus.iife.js.map

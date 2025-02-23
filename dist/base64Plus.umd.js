@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Base64Plus = {}));
-})(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Base64Plus = factory());
+})(this, (function () { 'use strict';
 
     /**
      * Copyright (c) A.S Nassiry
@@ -41,13 +41,13 @@
          * Gets the appropriate `btoa` function based on the environment.
          */
         static get btoaFn() {
-            return this.isNode ? this.nodeBtoa : btoa;
+            return this.isNode ? this.nodeBtoa : btoa.bind(window);
         }
         /**
          * Gets the appropriate `atob` function based on the environment.
          */
         static get atobFn() {
-            return this.isNode ? this.nodeAtob : atob;
+            return this.isNode ? this.nodeAtob : atob.bind(window);
         }
         /**
          * Validates whether a given string is a properly formatted Base64 string.
@@ -112,7 +112,16 @@
         }
     }
 
-    exports.Base64Plus = Base64Plus;
+    /**
+     * Copyright (c) A.S Nassiry
+     *
+     * For the full copyright and license information, please view the LICENSE
+     * file that was distributed with this source code.
+     *
+     * @see https://github.com/nassiry/base64plus
+     */
+
+    return Base64Plus;
 
 }));
 //# sourceMappingURL=base64Plus.umd.js.map

@@ -66,42 +66,50 @@ jobs:
       - name: Install dependencies
         run: npm ci --include=dev
 
-      - name: Install rollup
-        run: npm install rollup
-
       - name: Build project
         run: npm run build
 
-      - name: Bump version automatically
+      - name: Determine version bump type
+        id: version-bump
+        run: |
+          BUMP_TYPE="patch"
+
+          if git log -1 --pretty=%B | grep -q "\[major\]"; then
+            BUMP_TYPE="major"
+          elif git log -1 --pretty=%B | grep -q "\[minor\]"; then
+            BUMP_TYPE="minor"
+          fi
+
+          echo "BUMP_TYPE=${BUMP_TYPE}" >> $GITHUB_ENV
+
+      - name: Bump version and update Changelog
         id: version
         run: |
-          # Set the Git configuration with the username of the person who triggered the action
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-          # Ensure the working directory is clean
-          git status
           git reset --hard
           git clean -fdx
 
-          # Get current version and bump it
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          NEW_VERSION=$(npm version patch -m "Bump version to %s")
+          npm install -g standard-version
+
+          standard-version --commit-all --release-as ${{ env.BUMP_TYPE }}
+
+          NEW_VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
-          # Ensure the working directory is clean again
-          git status
-          git add -A || echo "No changes to commit"
-          git commit -m "Auto commit changes for version bump" || echo "No changes to commit"
+          git push --follow-tags origin main
 
-          # Push changes and tags
-          git push origin main --tags
+      - name: Generate release body from Changelog
+        id: generate-release-body
+        run: |
+          RELEASE_BODY=$(awk '/## \[/{if (NR!=1) exit} {print}' CHANGELOG.md | tail -n +2)
+          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
+          echo "$RELEASE_BODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      - name: Ensure Rollup is available
-        run: npx rollup --version
-
-      - name: Reinstall dependencies
-        run: npm ci
+      - name: Clean old build files
+        run: npm run clean
 
       - name: Publish to npm
         env:
@@ -114,7 +122,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ env.VERSION }}
           name: "Release ${{ env.VERSION }}"
-          body: "New release of Base64Plus!"
+          body: ${{ env.RELEASE_BODY }}
           draft: false
           prerelease: false
           files: |
