@@ -13,15 +13,33 @@
 **Base64Plus** is a modern, Unicode-safe Base64 encoding and decoding library.
 It supports **Node.js**, **ES Modules**, **Browsers**, and **TypeScript** with a built-in polyfill for Node.js environments.
 
-Unlike the native atob and btoa functions, **Base64Plus**:
+## Table Of Contents
 
-- ✅ **Handles Unicode strings properly**: Native `atob/btoa` fail with multi-byte characters like emojis or non-Latin scripts.
-- ✅ **Works in both Node.js & Browsers**: Node.js lacks `atob/btoa`, but **Base64Plus** provides a seamless polyfill.
-- ✅ **Supports ES Modules & TypeScript**: Fully typed for modern JavaScript projects.
-- ✅ **Encodes and decodes Buffers**: Unlike `atob`, which only works with plain strings.
-- ✅ **No dependencies & lightweight**: Small package size with no external dependencies.
+1. [Features](#features)
+2. [Installation](#1-installation)
+    - [Option 1: Install via NPM](#option-1-install-via-npm)
+    - [Option 2: Use via CDN](#option-2-use-via-cdn)
+    - [Option 3: Download Manually](#option-3-download-manually)
+3. [Usage](#2-usage)
+    - [Node.js (CommonJS)](#nodejs-commonjs)
+    - [ES Modules](#es-modules)
+    - [TypeScript Usage](#typescript-usage)
+4. [API Reference](#2-api-reference)
+5. [Development & Contribution](#3-development--contribution)
+    - [Build the Project](#build-the-project)
+    - [Run Tests](#run-tests)
+6. [Changelog](#changelog)
+7. [License](#license)
 
-## Installation
+## Features:
+
+- **Handles Unicode strings properly**: Native `atob/btoa` fail with multi-byte characters like emojis or non-Latin scripts.
+- **Works in both Node.js & Browsers**: Node.js lacks `atob/btoa`, but **Base64Plus** provides a seamless polyfill.
+- **Supports ES Modules & TypeScript**: Fully typed for modern JavaScript projects.
+- **Encodes and decodes Buffers**: Unlike `atob`, which only works with plain strings.
+- **No dependencies & lightweight**: Small package size with no external dependencies.
+
+## 1. Installation
 
 ### **Option 1: Install via NPM**
 ```sh
@@ -39,8 +57,8 @@ Include the `UMD` version directly in your HTML file:
 ### Option 3: Download Manually
 Get the latest release from [GitHub Releases](https://github.com/nassiry/base64plus/releases/latest).
 
-## Usage
-### 1. Node.js (CommonJS)
+## 2. Usage
+- ### Node.js (CommonJS)
 ```javascript
 const Base64Plus = require("base64plus");
 
@@ -51,7 +69,7 @@ const decoded = Base64Plus.decode(encoded);
 console.log(decoded); // Hello, World!
 ```
 
-### 2. ES Modules
+- ### ES Modules
 ```javascript
 import Base64Plus from "base64plus";
 
@@ -61,8 +79,10 @@ console.log(encoded); // Base64 string
 const decoded = Base64Plus.decode(encoded);
 console.log(decoded); // Base64 Encoding
 ```
-### 3. TypeScript Usage
+- ### TypeScript Usage
+
 For **TypeScript**, just import **Base64Plus** and enjoy the full type support!
+
 ```javascript
 import Base64Plus from "base64plus";
 
@@ -73,7 +93,7 @@ const decoded: string = Base64Plus.decode(encoded);
 console.log(decoded); // Hello, TypeScript!
 ```
 
-### API Reference
+## 2. API Reference
 - `Base64Plus.encode(input: string): string`
     Encodes a string to **Base64** while supporting full **Unicode characters**.
 - `Base64Plus.decode(base64String: string): string`
@@ -81,19 +101,24 @@ console.log(decoded); // Hello, TypeScript!
 - `Base64Plus.isValidBase64(base64String: string): boolean`
     Checks if a string is a valid **Base64 string**.    
 
-### Development & Contribution
+## 3. Development & Contribution
 Clone the Repository & `install` the dependencies.
 ```sh
 cd base64plus
 npm install
 ```
-### Build the Project
+- ### Build the Project
 ```sh
 npm run build
 ```
-### Run Tests
+- ### Run Tests
 ```sh
 npm test
 ```
-### License
+
+## Changelog
+
+See [Changelog](CHANGELOG.md) for release details.
+
+## License
 This package is open-source software licensed under the [MIT license](LICENSE).
