@@ -119,6 +119,9 @@ jobs:
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          
+      - name: Install dependencies before publish
+        run: npm ci --include=dev
 
       - name: Publish to npm
         env:
