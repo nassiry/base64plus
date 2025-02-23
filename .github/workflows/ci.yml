@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Rollup
+        run: npm install --global rollup
+        
       - name: Run tests
         run: npm test
 
