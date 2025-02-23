@@ -11,7 +11,7 @@ on:
 permissions:
   contents: write
   id-token: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,19 +27,8 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Reset Git working directory
-        run: |
-          git reset --hard
-          git clean -fdx
-
       - name: Install dependencies
-        run: npm ci --include=dev
-
-      - name: Debug node_modules/.bin
-        run: ls -l node_modules/.bin
-
-      - name: Verify Rollup installation
-        run: npx rollup --version
+        run: npm ci
 
       - name: Run tests
         run: npm test
@@ -64,44 +53,29 @@ jobs:
           registry-url: "https://registry.npmjs.org/"
           always-auth: true
 
-      - name: Reset Git working directory
-        run: |
-          git reset --hard
-          git clean -fdx
-
       - name: Install dependencies
-        run: npm ci --include=dev
-
-      - name: Debug node_modules/.bin
-        run: ls -l node_modules/.bin
-
-      - name: Verify Rollup installation
-        run: npx rollup --version
-
-      - name: Build project
-        run: npm run build
+        run: npm ci
 
       - name: Determine version bump type
         id: version-bump
         run: |
           BUMP_TYPE="patch"
+          COMMIT_MSG=$(git log -1 --pretty=%B)
 
-          if git log -1 --pretty=%B | grep -q "\[major\]"; then
+          if echo "$COMMIT_MSG" | grep -q "BREAKING CHANGE"; then
             BUMP_TYPE="major"
-          elif git log -1 --pretty=%B | grep -q "\[minor\]"; then
+          elif echo "$COMMIT_MSG" | grep -q "feat:"; then
             BUMP_TYPE="minor"
           fi
 
           echo "BUMP_TYPE=${BUMP_TYPE}" >> $GITHUB_ENV
+          echo "Detected version bump: $BUMP_TYPE"
 
       - name: Bump version and update Changelog
         id: version
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-
-          git reset --hard
-          git clean -fdx
 
           npm install -g standard-version
 
@@ -119,21 +93,16 @@ jobs:
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          
-      - name: Install dependencies before publish
-        run: npm ci --include=dev
 
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          export PATH=$(npm bin):$PATH
           npm publish --access public
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ env.VERSION }}
           name: "Release ${{ env.VERSION }}"
           body: ${{ env.RELEASE_BODY }}
