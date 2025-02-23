@@ -33,11 +33,14 @@ jobs:
           git clean -fdx
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --include=dev
 
-      - name: Install Rollup
-        run: npm install --global rollup
-        
+      - name: Debug node_modules/.bin
+        run: ls -l node_modules/.bin
+
+      - name: Verify Rollup installation
+        run: npx rollup --version
+
       - name: Run tests
         run: npm test
 
@@ -67,7 +70,10 @@ jobs:
           git clean -fdx
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --include=dev
+
+      - name: Debug node_modules/.bin
+        run: ls -l node_modules/.bin
 
       - name: Verify Rollup installation
         run: npx rollup --version
