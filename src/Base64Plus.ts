@@ -39,7 +39,7 @@ export class Base64Plus {
         }
 
         if (!Base64Utils.isValidBase64(base64String)) {
-            throw new TypeError('Invalid Base64 string format');
+            throw new TypeError(`Invalid Base64 format: "${base64String}". Ensure the input is correctly encoded.`);
         }
 
         const binary = Base64Utils.atobFn(base64String);

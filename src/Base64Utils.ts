@@ -39,14 +39,14 @@ export class Base64Utils {
      * Gets the appropriate `btoa` function based on the environment.
      */
     public static get btoaFn(): (str: string) => string {
-        return this.isNode ? this.nodeBtoa : btoa.bind(window);
+        return this.isNode ? this.nodeBtoa : (typeof btoa === 'function' ? btoa.bind(window) : this.nodeBtoa);
     }
 
     /**
      * Gets the appropriate `atob` function based on the environment.
      */
     public static get atobFn(): (base64: string) => string {
-        return this.isNode ? this.nodeAtob : atob.bind(window);
+        return this.isNode ? this.nodeAtob : (typeof atob === 'function' ? atob.bind(window) : this.nodeAtob);
     }
 
     /**
@@ -56,6 +56,6 @@ export class Base64Utils {
      */
     public static isValidBase64(base64String: string): boolean {
         const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
-        return base64Regex.test(base64String);
+        return base64Regex.test(base64String.trim());
     }
 }
