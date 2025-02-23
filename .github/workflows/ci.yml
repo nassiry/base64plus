@@ -123,7 +123,9 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        run: |
+          export PATH=$(npm bin):$PATH
+          npm publish --access public
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
