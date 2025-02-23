@@ -67,7 +67,7 @@ jobs:
         run: npm ci --include=dev
 
       - name: Verify Rollup installation
-          run: npx rollup --version
+        run: npx rollup --version
 
       - name: Install Rollup globally
         run: npm install -g rollup
