@@ -115,7 +115,7 @@ jobs:
       - name: Generate release body from Changelog
         id: generate-release-body
         run: |
-          RELEASE_BODY=$(awk '/## \[/{if (NR!=1) exit} {print}' CHANGELOG.md | tail -n +2)
+          RELEASE_BODY=$(awk '/### \[/{if (NR!=1) exit} {print}' CHANGELOG.md | tail -n +2)
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
