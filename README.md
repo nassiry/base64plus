@@ -97,8 +97,10 @@ Get the latest release from [GitHub Releases](https://github.com/nassiry/base64p
     Encodes a string to **Base64** while supporting full **Unicode characters**.
 - `Base64Plus.decode(base64String: string): string`
     Decodes a **Base64 string** back to a **Unicode string**.    
-- `Base64Plus.isValidBase64(base64String: string): boolean`
-    Checks if a string is a valid **Base64 string**.    
+- `Base64Plus.isValid(base64String: string): boolean`
+    Checks if a string is a valid **Base64 string**.   
+> **Deprecated:** `Base64Plus.isValidBase64(base64String: string): boolean`
+  Use `Base64Plus.isValid` instead.
 
 ## 3. Development & Contribution
 Clone the Repository & `install` the dependencies.

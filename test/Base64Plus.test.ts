@@ -25,8 +25,8 @@ describe('Base64Plus', () => {
     test('validates Base64 strings', () => {
         const validBase64 = 'SGVsbG8gV29ybGQ=';
         const invalidBase64 = 'Invalid@Base64!';
-        expect(Base64Plus.isValidBase64(validBase64)).toBe(true);
-        expect(Base64Plus.isValidBase64(invalidBase64)).toBe(false);
+        expect(Base64Plus.isValid(validBase64)).toBe(true);
+        expect(Base64Plus.isValid(invalidBase64)).toBe(false);
     });
 
     test('throws error for invalid inputs', () => {

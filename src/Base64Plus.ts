@@ -54,6 +54,13 @@ export class Base64Plus {
      * @param base64String - The string to validate.
      * @returns True if valid, false otherwise.
      */
+    public static isValid(base64String: string): boolean {
+        return Base64Utils.isValidBase64(base64String);
+    }
+
+    /**
+     * @deprecated Use `isValid` instead.
+     */
     public static isValidBase64(base64String: string): boolean {
         return Base64Utils.isValidBase64(base64String);
     }
