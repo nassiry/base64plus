@@ -11,6 +11,7 @@
 export class Base64Utils {
     /**
      * Determines if the environment is Node.js.
+     *
      * @returns True if running in Node.js, otherwise false.
      */
     public static get isNode(): boolean {
@@ -19,6 +20,7 @@ export class Base64Utils {
 
     /**
      * Node.js-compatible btoa function.
+     *
      * @param str - The binary string to encode.
      * @returns Base64-encoded string.
      */
@@ -28,6 +30,7 @@ export class Base64Utils {
 
     /**
      * Node.js-compatible atob function.
+     *
      * @param base64 - The Base64 string to decode.
      * @returns Decoded binary string.
      */
@@ -51,11 +54,30 @@ export class Base64Utils {
 
     /**
      * Validates whether a given string is a properly formatted Base64 string.
+     *
      * @param base64String - The string to validate.
      * @returns True if the string is valid Base64, false otherwise.
      */
     public static isValidBase64(base64String: string): boolean {
-        const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
-        return base64Regex.test(base64String.trim());
+        const trimmed = base64String.trim();
+
+        if (trimmed.length === 0) {
+            return true;
+        }
+
+        // Regex to match both standard and URL-safe Base64
+        // Allows at most 2 "=" padding characters at the end (or no padding at all)
+        const base64Regex = /^[A-Za-z0-9+/_-]+={0,2}$/;
+
+        if (!base64Regex.test(trimmed)) {
+            return false;
+        }
+
+        // If padding exists, ensure correct format
+        if (trimmed.includes('=')) {
+            return trimmed.endsWith('=') && (trimmed.length % 4 === 0);
+        }
+
+        return true;
     }
 }

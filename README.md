@@ -3,10 +3,10 @@
 # Base64Plus
 
 ![Build Status](https://img.shields.io/github/actions/workflow/status/nassiry/base64plus/ci.yml?branch=main)
-[![License](https://img.shields.io/github/license/nassiry/base64plus?style=flat-square)](https://github.com/nassiry/base64plus/blob/main/LICENSE)
 [![npm version](https://img.shields.io/npm/v/base64plus?color=blue&label=npm%20version&style=flat-square)](https://www.npmjs.com/package/base64plus)
 ![Total Downloads](https://img.shields.io/npm/dt/base64plus.svg)
 [![Latest Release](https://img.shields.io/github/release/nassiry/base64plus?style=flat-square)](https://github.com/nassiry/base64plus/releases)
+[![License](https://img.shields.io/github/license/nassiry/base64plus?style=flat-square)](https://github.com/nassiry/base64plus/blob/main/LICENSE)
 
 </div>
 
@@ -27,10 +27,11 @@ It supports **Node.js**, **ES Modules**, **Browsers**, and **TypeScript** with a
     - [Option 3: Download Manually](#option-3-download-manually)
 2. [Usage](#2-usage)
     - [Node.js (CommonJS)](#nodejs-commonjs)
-    - [ES Modules](#es-modules)
-    - [TypeScript Usage](#typescript-usage)
-3. [API Reference](#2-api-reference)
-4. [Development & Contribution](#3-development--contribution)
+    - [ES Modules / TypeScript](#es-modules--typescript)
+3. [API Reference](#3-api-reference)
+    - [Encoding and Decoding](#encoding-and-decoding)
+    - [Validation](#validation)
+4. [Development & Contribution](#4-development--contribution)
     - [Build the Project](#build-the-project)
     - [Run Tests](#run-tests)
 5. [Changelog](#changelog)
@@ -39,7 +40,7 @@ It supports **Node.js**, **ES Modules**, **Browsers**, and **TypeScript** with a
 
 ## 1. Installation
 
-- ### **Option 1: Install via NPM**
+- ### Option 1: Install via NPM
     ```sh
     npm install base64plus
     ```
@@ -66,9 +67,15 @@ Get the latest release from [GitHub Releases](https://github.com/nassiry/base64p
     
     const decoded = Base64Plus.decode(encoded);
     console.log(decoded); // Hello, World!
+  
+    const encodedUrl = Base64Plus.encodeUrl("Hello, World!");
+    console.log(encodedUrl); // Base64 string  
+    
+    const decodedUrl = Base64Plus.decodeUrl(encodedUrl);
+    console.log(decodedUrl); // Hello, World!
     ```
 
-- ### ES Modules
+- ### ES Modules / TypeScript
     ```javascript
     import Base64Plus from "base64plus";
     
@@ -78,31 +85,24 @@ Get the latest release from [GitHub Releases](https://github.com/nassiry/base64p
     const decoded = Base64Plus.decode(encoded);
     console.log(decoded); // Base64 Encoding
     ```
-- ### TypeScript Usage
 
-    For **TypeScript**, just import **Base64Plus** and enjoy the full type support!
-    
-    ```javascript
-    import Base64Plus from "base64plus";
-    
-    const encoded: string = Base64Plus.encode("Hello, TypeScript!");
-    console.log(encoded); // Base64 string
-    
-    const decoded: string = Base64Plus.decode(encoded);
-    console.log(decoded); // Hello, TypeScript!
-    ```
-
-## 2. API Reference
+## 3. API Reference
+### Encoding and Decoding
 - `Base64Plus.encode(input: string): string`
-    Encodes a string to **Base64** while supporting full **Unicode characters**.
+    - Encodes a string to **Base64** while supporting full **Unicode characters**.
 - `Base64Plus.decode(base64String: string): string`
-    Decodes a **Base64 string** back to a **Unicode string**.    
+    - Decodes a **Base64 string** back to a **Unicode string**.
+-  `Base64Plus.encodeUrl(input: string): string`
+    - Encodes a string to **URL-safe Base64**.
+- `Base64Plus.decodeUrl(Base64String: string): string`
+    - Decodes a **URL-safe Base64** string back to a Unicode string.
+### Validation
 - `Base64Plus.isValid(base64String: string): boolean`
-    Checks if a string is a valid **Base64 string**.   
+    - Checks if a string is a valid **Base64 string**.
 > **Deprecated:** `Base64Plus.isValidBase64(base64String: string): boolean`
-  Use `Base64Plus.isValid` instead.
+Use `Base64Plus.isValid` instead.
 
-## 3. Development & Contribution
+## 4. Development & Contribution
 Clone the Repository & `install` the dependencies.
 ```sh
 git clone https://github.com/nassiry/base64plus.git
