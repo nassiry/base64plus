@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/nassiry/base64plus/compare/v1.1.0...v1.2.0) (2025-03-20)
+
+
+### Features
+
+* Add  and  methods ([d962db4](https://github.com/nassiry/base64plus/commit/d962db4448a0a1568dcb7c39686ddb69af03aa4b))
+
 ## [1.1.0](https://github.com/nassiry/base64plus/compare/v1.0.28...v1.1.0) (2025-02-24)
 
 
