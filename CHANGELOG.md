@@ -7,7 +7,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* Add  and  methods ([d962db4](https://github.com/nassiry/base64plus/commit/d962db4448a0a1568dcb7c39686ddb69af03aa4b))
+* Added `encodeUrl` and `decodeUrl` methods ([d962db4](https://github.com/nassiry/base64plus/commit/d962db4448a0a1568dcb7c39686ddb69af03aa4b))
+* Update API reference for new methods and changes.
+* Improved performance and proper error handling.
+* Updated test files to use `encodeUrl` and `decodeUrl`.
 
 ## [1.1.0](https://github.com/nassiry/base64plus/compare/v1.0.28...v1.1.0) (2025-02-24)
 
